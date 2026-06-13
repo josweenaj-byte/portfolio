@@ -73,3 +73,32 @@ const observer = new IntersectionObserver((entries) => {
 
 // Tell the observer to watch each reveal element.
 revealItems.forEach((item) => observer.observe(item));
+
+fetch("projects.json")
+  .then(response => response.json())
+  .then(projects => {
+
+    const grid = document.getElementById("projects-grid");
+
+    projects.forEach(project => {
+
+      grid.innerHTML += `
+        <article class="card">
+          <span class="card-tag">${project.language}</span>
+
+          <h3 class="card-title">${project.name}</h3>
+
+          <p class="card-desc">
+            ${project.description || "No description"}
+          </p>
+
+          <a href="${project.url}"
+             target="_blank"
+             class="card-link">
+             View Repository ↗
+          </a>
+        </article>
+      `;
+    });
+
+  });
